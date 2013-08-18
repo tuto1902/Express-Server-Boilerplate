@@ -18,3 +18,5 @@ var OAuthClientSchema = new Schema({
     clientKey: String,
     clientSecret: String
 });
+
+mongoose.model('OAuthClient', OAuthClientSchema);

@@ -16,3 +16,5 @@ var AccessTokenSchema = new Schema({
         ref: 'User'
     }
 });
+
+mongoose.model('AccessToken', AccessTokenSchema);

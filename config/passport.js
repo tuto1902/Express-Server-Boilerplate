@@ -4,7 +4,11 @@ var mongoose = require('mongoose'),
     FacebookStrategy = require('passport-facebook').Strategy,
     GitHubStrategy = require('passport-github').Strategy,
     GoogleStrategy = require('passport-google-oauth').Strategy,
-    User = mongoose.model('User');
+    BasicStrategy = require('passport-http').BasicStrategy,
+    ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy,
+    BearerStrategy = require('passport-http-bearer').Strategy,
+    User = mongoose.model('User')
+    OAuthClient = mongoose.model('OAuthClient');
 
 
 module.exports = function(passport, config) {
@@ -47,6 +51,43 @@ module.exports = function(passport, config) {
             });
         }
     ));
+
+    //Use basic strategy for OAuth
+    passport.use(new BasicStrategy(function (username, password, done) {
+        OAuthClient.findOne({ clientKey: clientKey, clientSecret: clientToken }, null, null, function (error, client) {
+            console.log('BaS: clientKey: %s, clientToken: %s, error: %s, client: %s', clientKey, clientToken, error, client);
+            if (error) return done(error);
+            if (!client) return done(null, false);
+            return done(null, client);
+        });
+    }));
+
+    // Use client password strategy for OAuth2 clients
+    passport.use(new ClientPasswordStrategy(function (clientKey, clientToken, done) {
+        console.log('CPS: key: %s, token: %s', clientKey, clientToken);
+        OauthClient.findOne({ clientKey: clientKey, clientSecret: clientToken }, null, null, function (error, client) {
+            console.log('CPS: client: %s, error: %s', client, error);
+            if (error) return done(error);
+            if (!client) return done(null, false);
+            return done(null, client);
+        });
+    }));
+
+    // Use bearer strategy
+    passport.use(new BearerStrategy(function (accessToken, done) {
+        console.log('BeS: accessToken: %s', accessToken);
+        AccessToken.findOne({ token: accessToken }, null, null, function (error, token) {
+            if (error) return done(error);
+            if (!token) return done(null, false);
+            console.log('BeS: user_id: %s', token.user_id);
+            User.findOne({ _id: token.user_id }, null, null, function (error, user) {
+                console.log('BeS: user: %s, error: %s', user, error);
+                if (error) return done(error);
+                if (!user) return done(null, false);
+                return done(null, user);
+            });
+        });
+    }));
 
     //Use twitter strategy
     passport.use(new TwitterStrategy({

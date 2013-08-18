@@ -20,3 +20,5 @@ var RequestTokenSchema = new Schema({
         ref: 'OAuthClient'
     }
 });
+
+mongoose.model('RequestToken', RequestTokenSchema);
