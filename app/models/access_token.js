@@ -10,6 +10,10 @@ var mongoose = require('mongoose'),
  * AccessToken Schema
  */
 var AccessTokenSchema = new Schema({
+    created: {
+        type: Date,
+        default: Date.now
+    },
     token: String,
     user: {
         type: Schema.ObjectId,
