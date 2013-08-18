@@ -21,4 +21,15 @@ var RequestTokenSchema = new Schema({
     }
 });
 
+/**
+ * Statics
+ */
+RequestTokenSchema.statics = {
+    load: function(id, cb) {
+        this.findOne({
+            _id: id
+        }).exec(cb);
+    }
+};
+
 mongoose.model('RequestToken', RequestTokenSchema);

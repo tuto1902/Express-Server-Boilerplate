@@ -31,3 +31,12 @@ exports.article = {
         next();
     }
 };
+
+/**
+ * Client authorizations routing middleware
+ */
+exports.client = {
+    hasAuthorization: function(req, res, next) {
+        next();
+    }
+};

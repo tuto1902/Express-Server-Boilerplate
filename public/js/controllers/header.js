@@ -6,6 +6,12 @@ function HeaderController($scope, $location, Global) {
     }, {
         "title": "Create New Article",
         "link": "articles/create"
+    }, {
+        "title": "Clients",
+        "link": "clients"
+    }, {
+        "title": "Create New Client",
+        "link": "clients/create"
     }];
 
     $scope.init = function() {
