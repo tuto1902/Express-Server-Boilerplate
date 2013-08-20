@@ -1,5 +1,4 @@
-var async = require('async'),
-    oauth2 = require('./middlewares/oauth2');
+var async = require('async');
 
 module.exports = function(app, passport, auth) {
     //User Routes
@@ -75,8 +74,9 @@ module.exports = function(app, passport, auth) {
     app.del('/clients/:clientId', auth.requiresLogin, auth.client.hasAuthorization, clients.destroy);
 
     // Set up OAuth2 routes handling
-    app.get('/oauth/authorize', oauth2.authorization);
-    app.post('/oauth/authorize/decision', oauth2.decision);
+    var oauth2 = require('./middlewares/oauth2');
+    app.get('/oauth/authorize', auth.requiresLogin, oauth2.authorization, oauth2.dialog);
+    app.post('/oauth/authorize/decision', auth.requiresLogin, oauth2.server.decision());
     app.post('/oauth/token', oauth2.token);
 
     //Finish with setting up the clientId param

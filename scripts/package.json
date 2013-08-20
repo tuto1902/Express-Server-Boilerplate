@@ -1,5 +1,5 @@
 {
-	"dependencies": {
-		"oauth": "latest"
-	}
+  "dependencies": {
+    "simple-oauth2": "~0.1.7"
+  }
 }

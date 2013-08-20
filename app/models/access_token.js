@@ -18,6 +18,10 @@ var AccessTokenSchema = new Schema({
     user: {
         type: Schema.ObjectId,
         ref: 'User'
+    },
+    client: {
+        type: Schema.ObjectId,
+        ref: 'OAuthClient'
     }
 });
 

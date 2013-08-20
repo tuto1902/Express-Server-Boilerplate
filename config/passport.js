@@ -1,4 +1,5 @@
 var mongoose = require('mongoose'),
+    debug = require('debug')('oauth2')
     LocalStrategy = require('passport-local').Strategy,
     TwitterStrategy = require('passport-twitter').Strategy,
     FacebookStrategy = require('passport-facebook').Strategy,
@@ -54,10 +55,11 @@ module.exports = function(passport, config) {
         }
     ));
 
-    //Use basic strategy for OAuth
-    passport.use(new BasicStrategy(function (username, password, done) {
-        OAuthClient.findOne({ clientKey: clientKey, clientSecret: clientToken }, function (err, client) {
-            console.log('BaS: clientKey: %s, clientToken: %s, err: %s, client: %s', clientKey, clientToken, err, client);
+    // Use basic strategy for OAuth
+    passport.use(new BasicStrategy(function (clientKey, clientSecret, done) {
+        debug('BaS: clientKey: %s, clientSecret: %s', clientKey, clientSecret);
+        OAuthClient.findOne({ clientKey: clientKey, clientSecret: clientSecret }, function (err, client) {
+            debug('BaS: clientKey: %s, clientToken: %s, err: %s, client: %s', clientKey, clientSecret, err, client);
             if (err) return done(err);
             if (!client) return done(null, false);
             return done(null, client);
@@ -66,9 +68,9 @@ module.exports = function(passport, config) {
 
     // Use client password strategy for OAuth2 clients
     passport.use(new ClientPasswordStrategy(function (clientKey, clientToken, done) {
-        console.log('CPS: key: %s, token: %s', clientKey, clientToken);
-        OauthClient.findOne({ clientKey: clientKey, clientSecret: clientToken }, function (err, client) {
-            console.log('CPS: client: %s, err: %s', client, err);
+        debug('CPS: key: %s, token: %s', clientKey, clientToken);
+        OAuthClient.findOne({ clientKey: clientKey, clientSecret: clientToken }, function (err, client) {
+            debug('CPS: client: %s, err: %s', client, err);
             if (err) return done(err);
             if (!client) return done(null, false);
             return done(null, client);
@@ -77,13 +79,13 @@ module.exports = function(passport, config) {
 
     // Use bearer strategy
     passport.use(new BearerStrategy(function (accessToken, done) {
-        console.log('BeS: accessToken: %s', accessToken);
+        debug('BeS: accessToken: %s', accessToken);
         AccessToken.findOne({ token: accessToken }, function (err, token) {
             if (err) return done(err);
             if (!token) return done(null, false);
-            console.log('BeS: user_id: %s', token.user_id);
+            debug('BeS: user_id: %s', token.user_id);
             User.findOne({ _id: token.user_id }, function (err, user) {
-                console.log('BeS: user: %s, err: %s', user, err);
+                debug('BeS: user: %s, err: %s', user, err);
                 if (err) return done(err);
                 if (!user) return done(null, false);
                 return done(null, user);

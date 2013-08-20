@@ -15,6 +15,7 @@ var RequestTokenSchema = new Schema({
         default: Date.now
     },
     code: String,
+    redirectUri: String,
     user: {
         type: Schema.ObjectId,
         ref: 'User'
@@ -22,7 +23,7 @@ var RequestTokenSchema = new Schema({
     client: {
         type: Schema.ObjectId,
         ref: 'OAuthClient'
-    }
+    },
 });
 
 /**
