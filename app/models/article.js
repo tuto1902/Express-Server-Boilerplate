@@ -2,8 +2,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-    env = process.env.NODE_ENV || 'development',
-    config = require('../../config/config')[env],
+    config = require('../../config/config'),
     Schema = mongoose.Schema;
 
 
@@ -32,13 +31,20 @@ var ArticleSchema = new Schema({
 });
 
 /**
+ * Validations
+ */
+ArticleSchema.path('title').validate(function(title) {
+    return title.length;
+}, 'Title cannot be blank');
+
+/**
  * Statics
  */
 ArticleSchema.statics = {
     load: function(id, cb) {
         this.findOne({
             _id: id
-        }).populate('user').exec(cb);
+        }).populate('user', 'name username').exec(cb);
     }
 };
 

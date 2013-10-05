@@ -13,8 +13,8 @@ var express = require('express'),
 
 //Load configurations
 //if test env, load example file
-var env = process.env.NODE_ENV || 'development',
-    config = require('./config/config')[env],
+var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
+    config = require('./config/config'),
     auth = require('./config/middlewares/authorization'),
     mongoose = require('mongoose');
 
@@ -23,27 +23,38 @@ var db = mongoose.connect(config.db);
 
 //Bootstrap models
 var models_path = __dirname + '/app/models';
-fs.readdirSync(models_path).forEach(function(file) {
-    require(models_path + '/' + file);
-});
+var walk = function(path) {
+    fs.readdirSync(path).forEach(function(file) {
+        var newPath = path + '/' + file;
+        var stat = fs.statSync(newPath);
+        if (stat.isFile()) {
+            if (/(.*)\.(js|coffee)/.test(file)) {
+                require(newPath);
+            }
+        } else if (stat.isDirectory()) {
+            walk(newPath);
+        }
+    });
+};
+walk(models_path);
 
 //bootstrap passport config
-require('./config/passport')(passport, config);
+require('./config/passport')(passport);
 
 var app = express();
 
 //express settings
-require('./config/express')(app, config, passport);
+require('./config/express')(app, passport);
 
 //Bootstrap routes
 require('./config/routes')(app, passport, auth);
 
 //Start the app by listening on <port>
-var port = process.env.PORT || 3000;
+var port = config.port;
 app.listen(port);
 console.log('Express app started on port ' + port);
 
-//Initializing logger 
+//Initializing logger
 logger.init(app, passport, mongoose);
 
 //expose app

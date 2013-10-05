@@ -4,10 +4,11 @@ var mongoose = require('mongoose'),
     FacebookStrategy = require('passport-facebook').Strategy,
     GitHubStrategy = require('passport-github').Strategy,
     GoogleStrategy = require('passport-google-oauth').Strategy,
-    User = mongoose.model('User');
+    User = mongoose.model('User'),
+    config = require('./config');
 
 
-module.exports = function(passport, config) {
+module.exports = function(passport) {
     //Serialize sessions
     passport.serializeUser(function(user, done) {
         done(null, user.id);
@@ -56,7 +57,7 @@ module.exports = function(passport, config) {
         },
         function(token, tokenSecret, profile, done) {
             User.findOne({
-                'twitter.id': profile.id
+                'twitter.id_str': profile.id
             }, function(err, user) {
                 if (err) {
                     return done(err);

@@ -9,10 +9,12 @@ module.exports = function(app, passport, auth) {
 
     //Setting up the users api
     app.post('/users', users.create);
+
     app.post('/users/session', passport.authenticate('local', {
         failureRedirect: '/signin',
         failureFlash: 'Invalid email or password.'
     }), users.session);
+
     app.get('/users/me', users.me);
     app.get('/users/:userId', users.show);
 
@@ -21,6 +23,7 @@ module.exports = function(app, passport, auth) {
         scope: ['email', 'user_about_me'],
         failureRedirect: '/signin'
     }), users.signin);
+
     app.get('/auth/facebook/callback', passport.authenticate('facebook', {
         failureRedirect: '/signin'
     }), users.authCallback);
@@ -29,6 +32,7 @@ module.exports = function(app, passport, auth) {
     app.get('/auth/github', passport.authenticate('github', {
         failureRedirect: '/signin'
     }), users.signin);
+
     app.get('/auth/github/callback', passport.authenticate('github', {
         failureRedirect: '/signin'
     }), users.authCallback);
@@ -37,6 +41,7 @@ module.exports = function(app, passport, auth) {
     app.get('/auth/twitter', passport.authenticate('twitter', {
         failureRedirect: '/signin'
     }), users.signin);
+
     app.get('/auth/twitter/callback', passport.authenticate('twitter', {
         failureRedirect: '/signin'
     }), users.authCallback);
@@ -44,11 +49,14 @@ module.exports = function(app, passport, auth) {
     //Setting the google oauth routes
     app.get('/auth/google', passport.authenticate('google', {
         failureRedirect: '/signin',
-        scope: 'https://www.google.com/m8/feeds'
+        scope: [
+            'https://www.googleapis.com/auth/userinfo.profile',
+            'https://www.googleapis.com/auth/userinfo.email'
+        ]
     }), users.signin);
+
     app.get('/auth/google/callback', passport.authenticate('google', {
-        failureRedirect: '/signin',
-        scope: 'https://www.google.com/m8/feeds'
+        failureRedirect: '/signin'
     }), users.authCallback);
 
     //Finish with setting up the userId param

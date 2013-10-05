@@ -1,4 +1,4 @@
-window.app.factory("Global", function() {
+angular.module('mean.system').factory("Global", [function() {
     var _this = this;
     _this._data = {
         user: window.user,
@@ -6,4 +6,4 @@ window.app.factory("Global", function() {
     };
 
     return _this._data;
-});
+}]);

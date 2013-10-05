@@ -6,9 +6,7 @@ MEAN is a boilerplate that provides a nice starting point for [MongoDB](http://w
 * Node.js - Download and Install [Node.js](http://www.nodejs.org/download/). You can also follow [this gist](https://gist.github.com/isaacs/579814) for a quick and easy way to install Node.js and npm
 * MongoDB - Download and Install [MongoDB](http://www.mongodb.org/downloads) - Make sure it's running on the default port (27017).
 
-### Optional (Requirements for Grunt)
-* Ruby - Download and Install [Ruby](http://www.ruby-lang.org/).
-* Ruby Gems - Download and Install [Ruby Gems](http://rubygems.org).
+### Optional
 * Grunt - Download and Install [Grunt](http://gruntjs.com).
 
 ## Additional Packages
@@ -27,17 +25,31 @@ MEAN is a boilerplate that provides a nice starting point for [MongoDB](http://w
 
     $ npm install
 
-  We recommend using [Grunt](https://github.com/gruntjs/grunt-cli) to start the server:
+  Export the node Path to load your lib into project (default in HEROKU)
+    $ export NODE_PATH=lib
 
+  We recommend using [Grunt](https://github.com/gruntjs/grunt-cli) to start the server:
     $ grunt
 
   When not using grunt you can use:
 
     $ node server
-
-  Then open a browser and go to:
     
+  Then open a browser and go to:
+
     http://localhost:3000
+
+## Quick Deployment
+4 commands to deploy your mean app to heroku,
+Before you start make sure you have <a href="https://toolbelt.heroku.com/">heroku toolbelt</a> installed and an accessible mongo db instance - you can try <a href="http://www.mongohq.com/">mongohq</a> which have an easy setup )
+
+```bash
+git init
+git add .
+git commit -m "initial version"
+heroku apps:create
+git push heroku master
+```
 
 ## Configuration
 All configuration is specified in the [config](config/) folder, particularly the [config.js](config/config.js) file. Here you will need to specify your application name, database name, as well as hook up any social app keys if you want integration with Twitter, Facebook, GitHub or Google.
@@ -65,22 +77,22 @@ If you are using node instead of grunt, it is very similar:
 
 ## Getting Started
   We pre-included an article example, check it out:
-  * [The Model](app/models/article.js) - Where we define our object schema.
-  * [The Controller](app/controllers/articles.js) - Where we take care of our backend logic.
-  * [NodeJS Routes](config/routes.js) - Where we define our REST service routes.
-  * [AngularJs Routes](public/js/config.js) - Where we define our CRUD routes.
-  * [The AngularJs Service](public/js/services/articles.js) - Where we connect to our REST service.
-  * [The AngularJs Controller](public/js/controllers/articles.js) - Where we take care of  our frontend logic.
-  * [The AngularJs Views Folder](public/views/articles) - Where we keep our CRUD views.
+  * [The Model](https://github.com/linnovate/mean/blob/master/app/models/article.js) - Where we define our object schema.
+  * [The Controller](https://github.com/linnovate/mean/blob/master/app/controllers/articles.js) - Where we take care of our backend logic.
+  * [NodeJS Routes](https://github.com/linnovate/mean/blob/master/config/routes.js) - Where we define our REST service routes.
+  * [AngularJs Routes](https://github.com/linnovate/mean/blob/master/public/js/config.js) - Where we define our CRUD routes.
+  * [The AngularJs Service](https://github.com/linnovate/mean/blob/master/public/js/services/articles.js) - Where we connect to our REST service.
+  * [The AngularJs Controller](https://github.com/linnovate/mean/blob/master/public/js/controllers/articles.js) - Where we take care of  our frontend logic.
+  * [The AngularJs Views Folder](https://github.com/linnovate/mean/blob/master/public/views/articles) - Where we keep our CRUD views.
 
 ## MEAN Modules
    Mean presents a growing eco-system of MEAN based modules in the npm repository, To write (and contribute) your own MEAN based module checkout [mean-logger](https://npmjs.org/package/mean-logger) for examples.
   
 ## More Information
 
-  * Visit our [Ninja's Zone](http://www.meanleanstartupmachine.com/) for extended support.
+  * Contact Amos Haviv on any issue via [E-Mail](mailto:mail@amoshaviv.com), [Facebook](http://www.facebook.com/amoshaviv), or [Twitter](http://www.twitter.com/amoshaviv).
   * Visit us at [Linnovate.net](http://www.linnovate.net/).
-  * Contact amos on any issue via [E-Mail](mailto:mail@amoshaviv.com), [Facebook](http://www.facebook.com/amoshaviv), or [Twitter](http://www.twitter.com/amoshaviv).
+  * Visit our [Ninja's Zone](http://www.meanleanstartupmachine.com/) for extended support.
 
 ## Credits
 Inspired by the great work of [Madhusudhan Srinivasa](https://github.com/madhums/)

@@ -11,8 +11,6 @@ var mongoose = require('mongoose'),
  * Find article by id
  */
 exports.article = function(req, res, next, id) {
-    var User = mongoose.model('User');
-
     Article.load(id, function(err, article) {
         if (err) return next(err);
         if (!article) return next(new Error('Failed to load article ' + id));
@@ -26,10 +24,18 @@ exports.article = function(req, res, next, id) {
  */
 exports.create = function(req, res) {
     var article = new Article(req.body);
-
     article.user = req.user;
-    article.save();
-    res.jsonp(article);
+
+    article.save(function(err) {
+        if (err) {
+            return res.send('users/signup', {
+                errors: err.errors,
+                article: article
+            });
+        } else {
+            res.jsonp(article);
+        }
+    });
 };
 
 /**
@@ -73,7 +79,7 @@ exports.show = function(req, res) {
  * List of Articles
  */
 exports.all = function(req, res) {
-    Article.find().sort('-created').populate('user').exec(function(err, articles) {
+    Article.find().sort('-created').populate('user', 'name username').exec(function(err, articles) {
         if (err) {
             res.render('error', {
                 status: 500
