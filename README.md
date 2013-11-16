@@ -78,6 +78,7 @@ If you are using node instead of grunt, it is very similar:
 ## Credits
 
 [Madhusudhan Srinivasa](https://github.com/madhums/)
+
 [Xorcode MEAN](https://github.com/Xorcode/mean)
 
 ## License
