@@ -1,6 +1,6 @@
 # Express Server Boilerplate
 
-provides a nice starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/), [Express](http://expressjs.com/), and [AngularJS](http://angularjs.org/) based applications.  
+provides a nice starting point for [MongoDB](http://www.mongodb.org/), [Node.js](http://www.nodejs.org/) and [Express](http://expressjs.com/).  
 
 ## Prerequisites
 * Node.js - Download and Install [Node.js](http://www.nodejs.org/download/). You can also follow [this gist](https://gist.github.com/isaacs/579814) for a quick and easy way to install Node.js and npm
@@ -13,7 +13,6 @@ provides a nice starting point for [MongoDB](http://www.mongodb.org/), [Node.js]
 * Express - Defined as npm module in the [package.json](package.json) file.
 * Mongoose - Defined as npm module in the [package.json](package.json) file.
 * Passport - Defined as npm module in the [package.json](package.json) file.
-* AngularJS - Defined as bower module in the [bower.json](bower.json) file.
 * Twitter Bootstrap - Defined as bower module in the [bower.json](bower.json) file.
 * UI Bootstrap - Defined as bower module in the [bower.json](bower.json) file.
 
@@ -75,27 +74,11 @@ If you are using node instead of grunt, it is very similar:
 
 > NOTE: Running Node.js applications in the __production__ environment enables caching, which is disabled by default in all other environments.
 
-## Getting Started
-  We pre-included an article example, check it out:
-  * [The Model](https://github.com/linnovate/mean/blob/master/app/models/article.js) - Where we define our object schema.
-  * [The Controller](https://github.com/linnovate/mean/blob/master/app/controllers/articles.js) - Where we take care of our backend logic.
-  * [NodeJS Routes](https://github.com/linnovate/mean/blob/master/config/routes.js) - Where we define our REST service routes.
-  * [AngularJs Routes](https://github.com/linnovate/mean/blob/master/public/js/config.js) - Where we define our CRUD routes.
-  * [The AngularJs Service](https://github.com/linnovate/mean/blob/master/public/js/services/articles.js) - Where we connect to our REST service.
-  * [The AngularJs Controller](https://github.com/linnovate/mean/blob/master/public/js/controllers/articles.js) - Where we take care of  our frontend logic.
-  * [The AngularJs Views Folder](https://github.com/linnovate/mean/blob/master/public/views/articles) - Where we keep our CRUD views.
-
-## MEAN Modules
-   Mean presents a growing eco-system of MEAN based modules in the npm repository, To write (and contribute) your own MEAN based module checkout [mean-logger](https://npmjs.org/package/mean-logger) for examples.
-  
-## More Information
-
-  * Contact Amos Haviv on any issue via [E-Mail](mailto:mail@amoshaviv.com), [Facebook](http://www.facebook.com/amoshaviv), or [Twitter](http://www.twitter.com/amoshaviv).
-  * Visit us at [Linnovate.net](http://www.linnovate.net/).
-  * Visit our [Ninja's Zone](http://www.meanleanstartupmachine.com/) for extended support.
 
 ## Credits
-Inspired by the great work of [Madhusudhan Srinivasa](https://github.com/madhums/)
+
+[Madhusudhan Srinivasa](https://github.com/madhums/)
+[Xorcode MEAN](https://github.com/Xorcode/mean)
 
 ## License
 
